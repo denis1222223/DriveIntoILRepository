@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,32 +10,6 @@ namespace DriveIntoILProject
 {
     class Program
     {
-        static void GuickSort(int[] a, int l, int r)
-        {
-            int temp;
-            int x = a[l + (r - l) / 2];
-            int i = l;
-            int j = r;
-            while (i <= j)
-            {
-                while (a[i] < x) i++;
-                while (a[j] > x) j--;
-                if (i <= j)
-                {
-                    temp = a[i];
-                    a[i] = a[j];
-                    a[j] = temp;
-                    i++;
-                    j--;
-                }
-            }
-            if (i < r)
-                GuickSort(a, i, r);
-
-            if (l < j)
-                GuickSort(a, l, j);
-        }
-
         private static int ParseArguments(string[] args)
         {
             int length = 0;
@@ -67,10 +43,12 @@ namespace DriveIntoILProject
             //if (length == 0)
             //    return 1;
 
-            int[] numbers = GenerateRandomNumbers(10);
+            int[] numbers = GenerateRandomNumbers(5);
 
-            GuickSort(numbers, 0, 9);
-            for (int i = 0; i < 9; i++)
+            QuickSorter sorter = new QuickSorter();
+            sorter.Sort(numbers);
+
+            for (int i = 0; i < numbers.Length; i++)
             {
                 Console.Write(numbers[i].ToString());
                 Console.Write(" ");
